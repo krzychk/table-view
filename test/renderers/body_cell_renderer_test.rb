@@ -17,4 +17,12 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :title
     assert_dom_equal "<td>#{Post.first.send :title}</td>", renderer(column, Post.first).to_html
   end
+
+  test "allows setting contents using block" do
+    column = builder.column :title do |record|
+      assert_kind_of Post, record
+      record.title * 2
+    end
+    assert_dom_equal "<td>#{Post.first.title * 2}</td>", renderer(column, Post.first).to_html
+  end
 end

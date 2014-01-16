@@ -16,7 +16,11 @@ module TableView
       private
 
       def cell_contents
-        record.send(column.name)
+        if column.block_given?
+          capture { column.block.call(record) }
+        else
+          record.send(column.name)
+        end
       end
     end
   end
