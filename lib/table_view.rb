@@ -1,2 +1,1 @@
-module TableView
-end
+require "table_view/table_builder"
