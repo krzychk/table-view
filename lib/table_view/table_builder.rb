@@ -1,6 +1,6 @@
 module TableView
   class TableBuilder
-    attr_reader :relation, :klass, :columns, :classes, :row_classes
+    attr_reader :relation, :klass, :columns, :classes
 
     def initialize relation
       @relation = relation
@@ -29,10 +29,18 @@ module TableView
     end
 
     def row_classes= value
-      if value.is_a? Array
+      if value.is_a?(Array)
         @row_classes = value
       else
         @row_classes = value.to_s.split(" ")
+      end
+    end
+
+    def row_classes &block
+      if block_given?
+        @row_classes = block
+      else
+        @row_classes
       end
     end
   end

@@ -50,4 +50,11 @@ class HtmlClassesTest < ActiveSupport::TestCase
     assert_includes builder.row_classes, "my-row-class"
     assert_includes builder.row_classes, "other-class"
   end
+
+  test "allow row classes overriding using block" do
+    builder.row_classes do |record|
+      "class"
+    end
+    assert_kind_of Proc, builder.row_classes
+  end
 end

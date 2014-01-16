@@ -30,4 +30,12 @@ class BodyRendererTest < ActionView::TestCase
         '<tr class="row"><td>Second post</td><td>Contents of the second post</td></tr>' +
       '</tbody>', renderer.to_html
   end
+
+  test "row html classes using block" do
+    builder.row_classes {|record| "row-#{record.id}"}
+    assert_dom_equal '<tbody>' +
+        '<tr class="row-' + Post.all[0].id.to_s + '"><td>First post</td><td>Contents of the first post</td></tr>' +
+        '<tr class="row-' + Post.all[1].id.to_s + '"><td>Second post</td><td>Contents of the second post</td></tr>' +
+      '</tbody>', renderer.to_html
+  end
 end
