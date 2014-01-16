@@ -1,6 +1,6 @@
 module TableView
   class TableBuilder
-    attr_accessor :relation, :klass, :columns, :classes
+    attr_reader :relation, :klass, :columns, :classes
 
     def initialize relation
       @relation = relation
