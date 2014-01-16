@@ -2,7 +2,7 @@ module TableView
   class Column
     attr_reader :name, :options, :block
 
-    def initialize name, options={}, &block
+    def initialize name=nil, options={}, &block
       @name = name
       @options = options
       @block = block

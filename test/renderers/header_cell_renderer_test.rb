@@ -22,4 +22,11 @@ class HeaderCellRendererTest < ActionView::TestCase
     column = builder.column :title, :label => 'Custom label'
     assert_dom_equal "<th>Custom label</th>", renderer(column).to_html
   end
+
+  test "allows omitting name when block is given" do
+    column = builder.column do
+      "some contents"
+    end
+    assert_dom_equal "<th></th>", renderer(column).to_html
+  end
 end
