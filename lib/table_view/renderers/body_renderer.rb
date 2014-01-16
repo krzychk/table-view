@@ -14,7 +14,7 @@ module TableView
       end
 
       def record_html record
-        content_tag(:tr, columns_html(record))
+        content_tag(:tr, columns_html(record), attributes)
       end
 
       def columns_html record
@@ -25,6 +25,12 @@ module TableView
 
       def column_html record, column
         TableView::Renderers::BodyCellRenderer.new(builder, column, record).to_html
+      end
+
+      def attributes
+        attributes = {}
+        attributes[:class] = builder.row_classes.join(" ") if builder.row_classes.any?
+        attributes
       end
     end
   end
