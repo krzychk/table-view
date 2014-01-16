@@ -8,4 +8,8 @@ class InitializationTest < ActiveSupport::TestCase
   test "provides model class of relation" do
     assert_equal Post, builder.klass
   end
+
+  test "provides all models of given relation" do
+    assert_kind_of Array, builder.records
+  end
 end

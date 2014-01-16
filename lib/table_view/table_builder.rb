@@ -13,5 +13,9 @@ module TableView
       columns.push(column)
       column
     end
+
+    def records
+      @records ||= @relation.all
+    end
   end
 end
