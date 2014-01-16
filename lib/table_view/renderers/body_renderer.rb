@@ -24,11 +24,7 @@ module TableView
       end
 
       def column_html record, column
-        content_tag(:td, cell_contents(record, column))
-      end
-
-      def cell_contents record, column
-        record.send(column.name)
+        TableView::Renderers::BodyCellRenderer.new(builder, column, record).to_html
       end
     end
   end
