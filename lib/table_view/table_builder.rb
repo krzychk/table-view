@@ -1,11 +1,12 @@
 module TableView
   class TableBuilder
-    attr_accessor :relation, :klass, :columns
+    attr_accessor :relation, :klass, :columns, :classes
 
     def initialize relation
       @relation = relation
       @klass = relation.klass
       @columns = []
+      @classes = []
     end
 
     def column name
@@ -16,6 +17,14 @@ module TableView
 
     def records
       @records ||= @relation.all
+    end
+
+    def classes= value
+      if value.is_a? Array
+        @classes = value
+      else
+        @classes = value.to_s.split(" ")
+      end
     end
   end
 end
