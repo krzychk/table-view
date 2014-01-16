@@ -22,9 +22,20 @@ class TableRendererTest < ActionView::TestCase
     @header_renderer ||= TableView::Renderers::HeaderRenderer.new(builder)
   end
 
+  def table_html
+    HTML::Document.new(table_renderer.to_html).root
+  end
+
   teardown {@builder = @table_renderer = @body_renderer = @header_renderer = nil}
 
   test "renders table" do
     assert_dom_equal '<table>' + header_renderer.to_html + body_renderer.to_html + '</table>', table_renderer.to_html
+  end
+
+  test "table html classes" do
+    builder.classes = "my-table"
+    assert_select table_html, "table" do
+      assert_select "[class=my-table]"
+    end
   end
 end
