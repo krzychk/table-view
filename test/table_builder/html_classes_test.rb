@@ -28,4 +28,26 @@ class HtmlClassesTest < ActiveSupport::TestCase
     assert_includes builder.classes, "my-table-class"
     assert_includes builder.classes, "other-class"
   end
+
+  test "row_classes method returns array of row classes" do
+    assert_kind_of Array, builder.row_classes
+  end
+
+  test "allow row classes appending" do
+    builder.row_classes << "my-row-class"
+    assert_includes builder.row_classes, "my-row-class"
+  end
+
+  test "allow row classes overriding" do
+    builder.row_classes = ["my-row-class", "other-class"]
+    assert_includes builder.row_classes, "my-row-class"
+    assert_includes builder.row_classes, "other-class"
+  end
+
+  test "allow row classes overriding with string given" do
+    builder.row_classes = "my-row-class other-class"
+    assert_kind_of Array, builder.row_classes
+    assert_includes builder.row_classes, "my-row-class"
+    assert_includes builder.row_classes, "other-class"
+  end
 end
