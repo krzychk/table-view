@@ -26,7 +26,12 @@ class TableRendererTest < ActionView::TestCase
     HTML::Document.new(table_renderer.to_html).root
   end
 
-  teardown {@builder = @table_renderer = @body_renderer = @header_renderer = nil}
+  teardown do 
+    @builder = @table_renderer = @body_renderer = @header_renderer = nil
+    TableView.setup do |config|
+      config.default_table_classes = []
+    end
+  end
 
   test "renders table" do
     assert_dom_equal '<table>' + header_renderer.to_html + body_renderer.to_html + '</table>', table_renderer.to_html
@@ -36,6 +41,15 @@ class TableRendererTest < ActionView::TestCase
     builder.classes = "my-table"
     assert_select table_html, "table" do
       assert_select "[class=my-table]"
+    end
+  end
+
+  test "default table classes" do
+    TableView.setup do |config|
+      config.default_table_classes = ["default-class"]
+    end
+    assert_select table_html, "table" do
+      assert_select "[class=default-class]"
     end
   end
 end

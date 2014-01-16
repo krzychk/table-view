@@ -6,7 +6,7 @@ module TableView
       @relation = relation
       @klass = relation.klass
       @columns = []
-      @classes = []
+      @classes = TableView.default_table_classes.clone
     end
 
     def column name
