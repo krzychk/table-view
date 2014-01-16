@@ -14,11 +14,7 @@ module TableView
       end
 
       def column_html column
-        content_tag(:th, column_title(column))
-      end
-
-      def column_title column
-        builder.klass.human_attribute_name(column.name)
+        TableView::Renderers::HeaderCellRenderer.new(builder, column).to_html
       end
     end
   end

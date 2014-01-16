@@ -9,8 +9,8 @@ module TableView
       @classes = TableView.default_table_classes.clone
     end
 
-    def column name
-      column = TableView::Column.new(name)
+    def column name, options={}
+      column = TableView::Column.new(name, options)
       columns.push(column)
       column
     end
