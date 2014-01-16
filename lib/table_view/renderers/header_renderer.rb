@@ -1,14 +1,6 @@
 module TableView
   module Renderers
-    class HeaderRenderer
-      include ActionView::Helpers::TagHelper
-
-      attr_reader :builder
-
-      def initialize builder
-        @builder = builder
-      end
-
+    class HeaderRenderer < BaseRenderer
       def to_html
         content_tag(:thead, content_tag(:tr, columns_html))
       end

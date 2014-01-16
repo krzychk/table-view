@@ -1,14 +1,6 @@
 module TableView
   module Renderers
-    class BodyRenderer
-      include ActionView::Helpers::TagHelper
-
-      attr_reader :builder
-
-      def initialize builder
-        @builder = builder
-      end
-
+    class BodyRenderer < BaseRenderer
       def to_html
         content_tag(:tbody, rows_html)
       end
