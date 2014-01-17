@@ -61,6 +61,11 @@ class BodyCellRendererTest < ActionView::TestCase
       config.i18n_boolean = "booleans"
     end
     column = builder.column :is_active
-    assert_dom_equal "<td>#{I18n.t("booleans.#{Post.first.is_active}",)}</td>", renderer(column, Post.first).to_html
+    assert_dom_equal "<td>#{I18n.t("booleans.#{Post.first.is_active}")}</td>", renderer(column, Post.first).to_html
+  end
+
+  test "value translations" do
+    column = builder.column :post_type, :translate => "post_types"
+    assert_dom_equal "<td>#{I18n.t("post_types.#{Post.first.post_type}")}</td>", renderer(column, Post.first).to_html
   end
 end

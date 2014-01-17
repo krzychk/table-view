@@ -28,6 +28,7 @@ module TableView
       end
 
       def format value
+        value = I18n.t("#{column.translate}.#{value}") if column.translate && value
         if column.format
           context.send(column.format, value)
         elsif value.respond_to?(:strftime)

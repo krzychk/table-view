@@ -2,7 +2,9 @@ first:
   title: 'First post'
   content: 'Contents of the first post'
   is_active: true
+  post_type: 'private'
 second:
   title: 'Second post'
   content: 'Contents of the second post'
   is_active: false
+  post_type: 'public'
