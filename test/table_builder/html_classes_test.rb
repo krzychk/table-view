@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class HtmlClassesTest < ActiveSupport::TestCase
-  def builder
-    @builder ||= TableView::TableBuilder.new(Post.scoped)
+  def builder attributes={}
+    @builder ||= TableView::TableBuilder.new(Post.scoped, attributes)
   end
 
   teardown {@builder = nil}
@@ -56,5 +56,13 @@ class HtmlClassesTest < ActiveSupport::TestCase
       "class"
     end
     assert_kind_of Proc, builder.row_classes
+  end
+
+  test "allow appending classes to classes specified in attributes" do
+    builder(:class => 'first-class second-class')
+    builder.classes << 'third-class'
+    assert_includes builder.classes, "first-class"
+    assert_includes builder.classes, "second-class"
+    assert_includes builder.classes, "third-class"
   end
 end

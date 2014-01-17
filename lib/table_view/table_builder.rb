@@ -6,9 +6,10 @@ module TableView
       @relation = relation
       @klass = relation.klass
       @columns = []
-      @classes = TableView.default_table_classes.clone
       @row_classes = []
       @attributes = attributes
+      @classes = TableView.default_table_classes.clone
+      @classes += @attributes.delete(:class).split(" ") if @attributes[:class]
     end
 
     def column name=nil, options={}, &block
@@ -47,7 +48,7 @@ module TableView
 
     def attributes
       attributes = @attributes.clone
-      attributes[:class] = classes.join(' ') if classes.any? && !attributes[:class]
+      attributes[:class] = classes.join(' ') if classes.any?
       attributes
     end
   end
