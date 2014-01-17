@@ -73,4 +73,9 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :tags
     assert_dom_equal "<td>#{Post.first.tags.map(&:to_s).join(", ")}</td>", renderer(column, Post.first).to_html
   end
+
+  test "collection custom method rendering" do
+    column = builder.column :tags, :label_method => :name
+    assert_dom_equal "<td>#{Post.first.tags.map(&:name).join(", ")}</td>", renderer(column, Post.first).to_html
+  end
 end

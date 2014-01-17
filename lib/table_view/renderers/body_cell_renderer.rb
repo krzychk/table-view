@@ -32,7 +32,7 @@ module TableView
         if column.format
           context.send(column.format, value)
         elsif value.respond_to?(:join)
-          value.map(&:to_s).join(", ")
+          value.map(&column.label_method).join(", ")
         elsif value.respond_to?(:strftime)
           I18n.l(value)
         elsif value === true || value === false
