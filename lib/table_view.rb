@@ -8,6 +8,9 @@ module TableView
   mattr_accessor :default_table_classes
   @@default_table_classes = []
   
+  mattr_accessor :i18n_boolean
+  @@i18n_boolean = nil
+
   def self.setup
     yield self
   end

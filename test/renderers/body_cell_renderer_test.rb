@@ -11,7 +11,12 @@ class BodyCellRendererTest < ActionView::TestCase
     TableView::Renderers::BodyCellRenderer.new(builder, self, column, record)
   end
 
-  teardown {@builder = @renderer = nil}
+  teardown do 
+    @builder = @renderer = nil
+    TableView.setup do |config|
+      config.i18n_boolean = nil
+    end
+  end
 
   test "set contents using model.send method" do
     column = builder.column :title
@@ -49,5 +54,13 @@ class BodyCellRendererTest < ActionView::TestCase
   test "formats booleans using I18n" do
     column = builder.column :is_active
     assert_dom_equal "<td>#{I18n.t(Post.first.is_active.to_s)}</td>", renderer(column, Post.first).to_html
+  end
+
+  test "default boolean i18n" do
+    TableView.setup do |config|
+      config.i18n_boolean = "booleans"
+    end
+    column = builder.column :is_active
+    assert_dom_equal "<td>#{I18n.t("booleans.#{Post.first.is_active}",)}</td>", renderer(column, Post.first).to_html
   end
 end
