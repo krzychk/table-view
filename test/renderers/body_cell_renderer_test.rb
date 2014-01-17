@@ -78,4 +78,16 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :tags, :label_method => :name
     assert_dom_equal "<td>#{Post.first.tags.map(&:name).join(", ")}</td>", renderer(column, Post.first).to_html
   end
+
+  test "creating links" do
+    builder.link_to :record
+    column = builder.column :title
+    assert_dom_equal "<td>#{link_to(Post.first.title, Post.first)}</td>", renderer(column, Post.first).to_html
+  end
+
+  test "creating complex links" do
+    builder.link_to [:edit, :record]
+    column = builder.column :title
+    assert_dom_equal "<td>#{link_to(Post.first.title, edit_post_path(Post.first))}</td>", renderer(column, Post.first).to_html
+  end
 end

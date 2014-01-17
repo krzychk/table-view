@@ -16,11 +16,13 @@ module TableView
       private
 
       def cell_contents
-        if column.block_given?
+        contents = if column.block_given?
           context.capture { column.block.call(record) }
         else
           format(record.send(column.name))
         end
+        contents = link(contents) if builder.link_to && !contents.html_safe?
+        contents
       end
 
       def attributes
@@ -40,6 +42,12 @@ module TableView
         else
           value
         end
+      end
+
+      def link contents
+        path_segments = builder.link_to.is_a?(Array) ? builder.link_to.clone : [builder.link_to]
+        path_segments.map! {|segment| segment == :record ? record : segment}
+        context.link_to(contents, path_segments)
       end
     end
   end
