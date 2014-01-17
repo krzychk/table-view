@@ -25,4 +25,9 @@ class BodyCellRendererTest < ActionView::TestCase
     end
     assert_dom_equal "<td>#{Post.first.title * 2}</td>", renderer(column, Post.first).to_html
   end
+
+  test "attribute rendering" do
+    column = builder.column :title, :body_attributes => {:style => 'color: red;'}
+    assert_dom_equal "<td style=\"color: red;\">#{Post.first.send :title}</td>", renderer(column, Post.first).to_html
+  end
 end

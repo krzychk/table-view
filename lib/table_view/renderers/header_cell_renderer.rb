@@ -9,7 +9,7 @@ module TableView
       end
 
       def to_html
-        content_tag(:th, cell_contents)
+        content_tag(:th, cell_contents, column.header_attributes)
       end
 
       private

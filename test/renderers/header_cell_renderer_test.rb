@@ -29,4 +29,9 @@ class HeaderCellRendererTest < ActionView::TestCase
     end
     assert_dom_equal "<th></th>", renderer(column).to_html
   end
+
+  test "attribute rendering" do
+    column = builder.column :title, :header_attributes => {:id => 'post_title'}
+    assert_dom_equal "<th id=\"post_title\">#{Post.human_attribute_name :title}</th>", renderer(column).to_html
+  end
 end
