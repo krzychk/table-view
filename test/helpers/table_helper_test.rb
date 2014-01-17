@@ -20,4 +20,10 @@ class TableHelperTest < ActionView::TestCase
       t.column :content
     end)
   end
+
+  test "attributes" do
+    table_for(Post.scoped, :id => 'table_id') do |t|
+      assert_equal({:id => 'table_id'}, t.attributes)
+    end
+  end
 end

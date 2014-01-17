@@ -2,12 +2,13 @@ module TableView
   class TableBuilder
     attr_reader :relation, :klass, :columns, :classes
 
-    def initialize relation
+    def initialize relation, attributes={}
       @relation = relation
       @klass = relation.klass
       @columns = []
       @classes = TableView.default_table_classes.clone
       @row_classes = []
+      @attributes = attributes
     end
 
     def column name=nil, options={}, &block
@@ -42,6 +43,12 @@ module TableView
       else
         @row_classes
       end
+    end
+
+    def attributes
+      attributes = @attributes.clone
+      attributes[:class] = classes.join(' ') if classes.any? && !attributes[:class]
+      attributes
     end
   end
 end
