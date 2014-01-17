@@ -2,6 +2,7 @@ module TableView
   module Renderers
     class BodyRenderer < BaseRenderer
       def to_html
+        @has_rows = false
         content_tag(:tbody, rows_html)
       end
 
@@ -10,10 +11,12 @@ module TableView
       def rows_html
         rows_html = "".html_safe
         builder.records.each {|record| rows_html << record_html(record)}
+        rows_html << no_records_row unless @has_rows
         rows_html
       end
 
       def record_html record
+        @has_rows = true
         content_tag(:tr, columns_html(record), attributes(record))
       end
 
@@ -39,6 +42,10 @@ module TableView
         else
           builder.row_classes.join(" ") if builder.row_classes.any?
         end
+      end
+
+      def no_records_row
+        content_tag(:tr, content_tag(:td, builder.no_records_label, :colspan => builder.columns.length))
       end
     end
   end

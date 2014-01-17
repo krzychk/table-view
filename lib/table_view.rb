@@ -11,6 +11,9 @@ module TableView
   mattr_accessor :i18n_boolean
   @@i18n_boolean = nil
 
+  mattr_accessor :i18n_no_records
+  @@i18n_no_records = "no_records"
+
   mattr_accessor :link_cell_class
   @@link_cell_class = nil
 

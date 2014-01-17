@@ -1,7 +1,7 @@
 module TableView
   class TableBuilder
     attr_reader :relation, :klass, :columns, :classes, :link_attributes
-    attr_accessor :link_cell_class
+    attr_accessor :link_cell_class, :no_records_label
 
     def initialize relation, attributes={}
       @relation = relation
@@ -14,6 +14,7 @@ module TableView
       @link_to = false
       @link_attributes = {}
       @link_cell_class = TableView.link_cell_class
+      @no_records_label = I18n.t(TableView.i18n_no_records)
     end
 
     def column name=nil, options={}, &block
