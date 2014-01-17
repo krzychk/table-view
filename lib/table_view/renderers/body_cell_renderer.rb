@@ -30,6 +30,8 @@ module TableView
       def format value
         if column.format
           context.send(column.format, value)
+        elsif value.respond_to?(:strftime)
+          I18n.l(value)
         else
           value
         end
