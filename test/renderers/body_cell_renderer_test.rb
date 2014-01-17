@@ -90,4 +90,10 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :title
     assert_dom_equal "<td>#{link_to(Post.first.title, edit_post_path(Post.first))}</td>", renderer(column, Post.first).to_html
   end
+
+  test "link attributes" do
+    builder.link_to :record, :remote => true
+    column = builder.column :title
+    assert_dom_equal "<td>#{link_to(Post.first.title, post_path(Post.first), :remote => true)}</td>", renderer(column, Post.first).to_html
+  end
 end
