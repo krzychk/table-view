@@ -45,7 +45,7 @@ module TableView
       end
 
       def no_records_row
-        content_tag(:tr, content_tag(:td, builder.no_records_label, :colspan => builder.columns.length))
+        content_tag(:tr, content_tag(:td, builder.no_records_label, :colspan => builder.columns.length), :class => builder.no_records_class)
       end
     end
   end

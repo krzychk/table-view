@@ -17,6 +17,9 @@ module TableView
   mattr_accessor :link_cell_class
   @@link_cell_class = nil
 
+  mattr_accessor :no_records_class
+  @@no_records_class = nil
+
   def self.setup
     yield self
   end
