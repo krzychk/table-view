@@ -1,6 +1,8 @@
 first:
   title: 'First post'
   content: 'Contents of the first post'
+  is_active: true
 second:
   title: 'Second post'
   content: 'Contents of the second post'
+  is_active: false

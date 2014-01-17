@@ -32,6 +32,8 @@ module TableView
           context.send(column.format, value)
         elsif value.respond_to?(:strftime)
           I18n.l(value)
+        elsif value === true || value === false
+          I18n.t(value.to_s)
         else
           value
         end

@@ -45,4 +45,9 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :created_at
     assert_dom_equal "<td>#{I18n.l(Post.first.created_at)}</td>", renderer(column, Post.first).to_html
   end
+
+  test "formats booleans using I18n" do
+    column = builder.column :is_active
+    assert_dom_equal "<td>#{I18n.t(Post.first.is_active.to_s)}</td>", renderer(column, Post.first).to_html
+  end
 end
