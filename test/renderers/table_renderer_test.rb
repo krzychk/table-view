@@ -11,15 +11,15 @@ class TableRendererTest < ActionView::TestCase
   end
 
   def table_renderer
-    @table_renderer ||= TableView::Renderers::TableRenderer.new(builder)
+    @table_renderer ||= TableView::Renderers::TableRenderer.new(builder, self)
   end
 
   def body_renderer
-    @body_renderer ||= TableView::Renderers::BodyRenderer.new(builder)
+    @body_renderer ||= TableView::Renderers::BodyRenderer.new(builder, self)
   end
 
   def header_renderer
-    @header_renderer ||= TableView::Renderers::HeaderRenderer.new(builder)
+    @header_renderer ||= TableView::Renderers::HeaderRenderer.new(builder, self)
   end
 
   def table_html

@@ -8,7 +8,7 @@ class HeaderCellRendererTest < ActionView::TestCase
   end
 
   def renderer column
-    TableView::Renderers::HeaderCellRenderer.new(builder, column)
+    TableView::Renderers::HeaderCellRenderer.new(builder, self, column)
   end
 
   teardown {@builder = @renderer = nil}

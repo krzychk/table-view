@@ -9,7 +9,7 @@ class HeaderRendererTest < ActionView::TestCase
   end
 
   def renderer
-    @renderer ||= TableView::Renderers::HeaderRenderer.new(builder)
+    @renderer ||= TableView::Renderers::HeaderRenderer.new(builder, self)
   end
 
   teardown {@builder = @renderer = nil}

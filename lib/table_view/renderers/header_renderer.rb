@@ -14,7 +14,7 @@ module TableView
       end
 
       def column_html column
-        TableView::Renderers::HeaderCellRenderer.new(builder, column).to_html
+        TableView::Renderers::HeaderCellRenderer.new(builder, context, column).to_html
       end
     end
   end

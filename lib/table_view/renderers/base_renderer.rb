@@ -4,10 +4,11 @@ module TableView
       include ActionView::Context
       include ActionView::Helpers::TagHelper
 
-      attr_reader :builder
+      attr_reader :builder, :context
 
-      def initialize builder
+      def initialize builder, context
         @builder = builder
+        @context = context
       end
     end
   end

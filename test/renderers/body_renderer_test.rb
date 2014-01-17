@@ -11,7 +11,7 @@ class BodyRendererTest < ActionView::TestCase
   end
 
   def renderer
-    @renderer ||= TableView::Renderers::BodyRenderer.new(builder)
+    @renderer ||= TableView::Renderers::BodyRenderer.new(builder, self)
   end
 
   teardown {@builder = @renderer = nil}

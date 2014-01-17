@@ -11,7 +11,7 @@ class TableHelperTest < ActionView::TestCase
   end
 
   def table_renderer
-    @table_renderer ||= TableView::Renderers::TableRenderer.new(builder)
+    @table_renderer ||= TableView::Renderers::TableRenderer.new(builder, self)
   end
 
   test "table_for helper method" do

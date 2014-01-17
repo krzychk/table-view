@@ -24,7 +24,7 @@ module TableView
       end
 
       def column_html record, column
-        TableView::Renderers::BodyCellRenderer.new(builder, column, record).to_html
+        TableView::Renderers::BodyCellRenderer.new(builder, context, column, record).to_html
       end
 
       def attributes record

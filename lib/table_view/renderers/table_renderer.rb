@@ -8,11 +8,11 @@ module TableView
       private
 
       def header_renderer
-        @header_renderer ||= TableView::Renderers::HeaderRenderer.new(builder)
+        @header_renderer ||= TableView::Renderers::HeaderRenderer.new(builder, context)
       end
 
       def body_renderer
-        @body_renderer ||= TableView::Renderers::BodyRenderer.new(builder)
+        @body_renderer ||= TableView::Renderers::BodyRenderer.new(builder, context)
       end
     end
   end

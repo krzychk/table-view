@@ -8,7 +8,7 @@ class BodyCellRendererTest < ActionView::TestCase
   end
 
   def renderer column, record
-    TableView::Renderers::BodyCellRenderer.new(builder, column, record)
+    TableView::Renderers::BodyCellRenderer.new(builder, self, column, record)
   end
 
   teardown {@builder = @renderer = nil}
@@ -34,5 +34,10 @@ class BodyCellRendererTest < ActionView::TestCase
   test "renders attributes defined by lambdas" do
     column = builder.column :title, :body_attributes => {:id => lambda {|post| "post_title_#{post.id}"}}
     assert_dom_equal "<td id=\"post_title_#{Post.first.id}\">#{Post.first.send :title}</td>", renderer(column, Post.first).to_html
+  end
+
+  test "uses specified format method" do
+    column = builder.column :title, :format => :simple_format
+    assert_dom_equal "<td><p>#{Post.first.send(:title)}</p></td>", renderer(column, Post.first).to_html
   end
 end

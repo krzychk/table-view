@@ -3,8 +3,8 @@ module TableView
     class HeaderCellRenderer < BaseRenderer
       attr_reader :column
 
-      def initialize builder, column
-        super(builder)
+      def initialize builder, context, column
+        super(builder, context)
         @column = column
       end
 
