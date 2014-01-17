@@ -10,7 +10,7 @@ module TableView
       end
 
       def to_html
-        content_tag(:td, cell_contents, column.body_attributes)
+        content_tag(:td, cell_contents, attributes)
       end
 
       private
@@ -21,6 +21,10 @@ module TableView
         else
           record.send(column.name)
         end
+      end
+
+      def attributes
+        Hash[column.body_attributes.map {|k,v| [k, v.is_a?(Proc) ? v.call(record) : v]}]
       end
     end
   end

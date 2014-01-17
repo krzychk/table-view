@@ -30,4 +30,9 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :title, :body_attributes => {:style => 'color: red;'}
     assert_dom_equal "<td style=\"color: red;\">#{Post.first.send :title}</td>", renderer(column, Post.first).to_html
   end
+
+  test "renders attributes defined by lambdas" do
+    column = builder.column :title, :body_attributes => {:id => lambda {|post| "post_title_#{post.id}"}}
+    assert_dom_equal "<td id=\"post_title_#{Post.first.id}\">#{Post.first.send :title}</td>", renderer(column, Post.first).to_html
+  end
 end
