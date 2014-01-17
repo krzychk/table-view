@@ -17,7 +17,7 @@ module TableView
 
       def cell_contents
         if column.block_given?
-          capture { column.block.call(record) }
+          context.capture { column.block.call(record) }
         else
           format(record.send(column.name))
         end
