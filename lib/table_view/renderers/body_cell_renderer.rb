@@ -7,6 +7,7 @@ module TableView
         super(builder, context)
         @column = column
         @record = record
+        @link_created = false
       end
 
       def to_html
@@ -26,7 +27,13 @@ module TableView
       end
 
       def attributes
-        Hash[column.body_attributes.map {|k,v| [k, v.is_a?(Proc) ? v.call(record) : v]}]
+        attributes = Hash[column.body_attributes.map {|k,v| [k, v.is_a?(Proc) ? v.call(record) : v]}]
+        if attributes[:class]
+          attributes[:class] += " #{builder.link_cell_class}"
+        else
+          attributes[:class] = builder.link_cell_class
+        end if @link_created
+        attributes
       end
 
       def format value
@@ -45,6 +52,7 @@ module TableView
       end
 
       def link contents
+        @link_created = true
         path_segments = builder.link_to.is_a?(Array) ? builder.link_to.clone : [builder.link_to]
         path_segments.map! {|segment| segment == :record ? record : segment}
         context.link_to(contents, path_segments, builder.link_attributes)

@@ -15,6 +15,7 @@ class BodyCellRendererTest < ActionView::TestCase
     @builder = @renderer = nil
     TableView.setup do |config|
       config.i18n_boolean = nil
+      config.link_cell_class = nil
     end
   end
 
@@ -101,5 +102,21 @@ class BodyCellRendererTest < ActionView::TestCase
     builder.link_to :record
     column = builder.column :content, :format => :simple_format
     assert_dom_equal "<td><p>#{Post.first.send(:content)}</p></td>", renderer(column, Post.first).to_html
+  end
+
+  test "link cell class" do
+    builder.link_to :record
+    builder.link_cell_class = "with-link"
+    column = builder.column :title
+    assert_dom_equal "<td class=\"with-link\">#{link_to(Post.first.title, post_path(Post.first))}</td>", renderer(column, Post.first).to_html
+  end
+
+  test "default link cell class" do
+    TableView.setup do |config|
+      config.link_cell_class = "cell-with-link"
+    end
+    builder.link_to :record
+    column = builder.column :title
+    assert_dom_equal "<td class=\"cell-with-link\">#{link_to(Post.first.title, post_path(Post.first))}</td>", renderer(column, Post.first).to_html
   end
 end

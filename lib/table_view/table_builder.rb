@@ -1,6 +1,7 @@
 module TableView
   class TableBuilder
     attr_reader :relation, :klass, :columns, :classes, :link_attributes
+    attr_accessor :link_cell_class
 
     def initialize relation, attributes={}
       @relation = relation
@@ -12,6 +13,7 @@ module TableView
       @classes += @attributes.delete(:class).split(" ") if @attributes[:class]
       @link_to = false
       @link_attributes = {}
+      @link_cell_class = TableView.link_cell_class
     end
 
     def column name=nil, options={}, &block
