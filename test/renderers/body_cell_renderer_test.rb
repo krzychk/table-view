@@ -68,4 +68,9 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :post_type, :translate => "post_types"
     assert_dom_equal "<td>#{I18n.t("post_types.#{Post.first.post_type}")}</td>", renderer(column, Post.first).to_html
   end
+
+  test "collection rendering" do
+    column = builder.column :tags
+    assert_dom_equal "<td>#{Post.first.tags.map(&:to_s).join(", ")}</td>", renderer(column, Post.first).to_html
+  end
 end

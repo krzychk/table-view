@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117120448) do
+ActiveRecord::Schema.define(version: 20140117121637) do
 
   create_table "posts", force: true do |t|
     t.string   "title"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20140117120448) do
     t.datetime "updated_at"
     t.boolean  "is_active",  default: false
     t.string   "post_type"
+  end
+
+  create_table "tags", force: true do |t|
+    t.integer  "post_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

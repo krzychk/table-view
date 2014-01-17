@@ -31,6 +31,8 @@ module TableView
         value = I18n.t("#{column.translate}.#{value}") if column.translate && value
         if column.format
           context.send(column.format, value)
+        elsif value.respond_to?(:join)
+          value.map(&:to_s).join(", ")
         elsif value.respond_to?(:strftime)
           I18n.l(value)
         elsif value === true || value === false
