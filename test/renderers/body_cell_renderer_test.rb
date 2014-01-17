@@ -96,4 +96,10 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :title
     assert_dom_equal "<td>#{link_to(Post.first.title, post_path(Post.first), :remote => true)}</td>", renderer(column, Post.first).to_html
   end
+
+  test "doesn't create links on html safe values" do
+    builder.link_to :record
+    column = builder.column :content, :format => :simple_format
+    assert_dom_equal "<td><p>#{Post.first.send(:content)}</p></td>", renderer(column, Post.first).to_html
+  end
 end
