@@ -16,4 +16,12 @@ class TableViewGeneratorTest < Rails::Generators::TestCase
     run_generator
     assert_file 'config/initializers/table_view.rb', *config_options
   end
+
+  test "bootstrap initializer" do
+    run_generator ["--bootstrap"]
+    assert_file 'config/initializers/table_view.rb', *config_options
+    assert_file 'config/initializers/table_view.rb',
+      /config\.default_table_classes = %w\(table table-bordered\)/,
+      /config\.no_records_class = "warning"/
+  end
 end
