@@ -1,10 +1,18 @@
-require "table_view/table_builder"
-require "table_view/column"
-require "table_view/renderers"
-require "table_view/helpers"
-
-
 module TableView
+  extend ActiveSupport::Autoload
+
+  eager_autoload do
+    autoload :TableBuilder
+    autoload :Helpers
+    autoload :Column
+    autoload :Renderers
+  end
+
+  def self.eager_load!
+    super
+    TableView::Renderers.eager_load!
+  end
+
   mattr_accessor :default_table_classes
   @@default_table_classes = []
   
@@ -24,3 +32,5 @@ module TableView
     yield self
   end
 end
+
+require "table_view/railtie" if defined?(Rails)

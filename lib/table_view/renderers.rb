@@ -1,6 +1,12 @@
-require "table_view/renderers/base_renderer"
-require "table_view/renderers/table_renderer"
-require "table_view/renderers/header_renderer"
-require "table_view/renderers/body_renderer"
-require "table_view/renderers/header_cell_renderer"
-require "table_view/renderers/body_cell_renderer"
+module TableView
+  module Renderers
+    extend ActiveSupport::Autoload
+
+    autoload :BaseRenderer
+    autoload :BodyCellRenderer
+    autoload :BodyRenderer
+    autoload :HeaderCellRenderer
+    autoload :HeaderRenderer
+    autoload :TableRenderer
+  end
+end
