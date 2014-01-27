@@ -25,7 +25,7 @@ module TableView
     end
 
     def records
-      @records ||= @relation.all
+      @records ||= @relation.load
     end
 
     def classes= value

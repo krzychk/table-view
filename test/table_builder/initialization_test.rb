@@ -2,7 +2,7 @@ require 'test_helper'
 
 class InitializationTest < ActiveSupport::TestCase
   def builder attributes={}
-    TableView::TableBuilder.new(Post.scoped, attributes)
+    TableView::TableBuilder.new(Post.all, attributes)
   end
 
   test "provides model class of relation" do
@@ -10,7 +10,7 @@ class InitializationTest < ActiveSupport::TestCase
   end
 
   test "provides all models of given relation" do
-    assert_kind_of Array, builder.records
+    assert_equal Post.all.load, builder.records
   end
 
   test "provides given attributes" do

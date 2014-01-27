@@ -3,7 +3,7 @@ require 'test_helper'
 class BodyRendererTest < ActionView::TestCase
   fixtures :all
   
-  def builder posts=Post.scoped
+  def builder posts=Post.all
     @builder ||= TableView::TableBuilder.new(posts).tap do |t|
       t.column :title
       t.column :content

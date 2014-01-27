@@ -4,7 +4,7 @@ class HeaderCellRendererTest < ActionView::TestCase
   fixtures :all
   
   def builder
-    @builder ||= TableView::TableBuilder.new(Post.scoped)
+    @builder ||= TableView::TableBuilder.new(Post.all)
   end
 
   def renderer column

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class HtmlClassesTest < ActiveSupport::TestCase
   def builder attributes={}
-    @builder ||= TableView::TableBuilder.new(Post.scoped, attributes)
+    @builder ||= TableView::TableBuilder.new(Post.all, attributes)
   end
 
   teardown {@builder = nil}

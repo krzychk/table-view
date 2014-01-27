@@ -2,7 +2,7 @@ require 'test_helper'
 
 class HeaderRendererTest < ActionView::TestCase
   def builder
-    @builder ||= TableView::TableBuilder.new(Post.scoped).tap do |t|
+    @builder ||= TableView::TableBuilder.new(Post.all).tap do |t|
       t.column :title
       t.column :content
     end

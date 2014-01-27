@@ -4,7 +4,7 @@ class TableHelperTest < ActionView::TestCase
   fixtures :all
 
   def builder
-    @builder ||= TableView::TableBuilder.new(Post.scoped).tap do |t|
+    @builder ||= TableView::TableBuilder.new(Post.all).tap do |t|
       t.column :title
       t.column :content
     end
@@ -15,14 +15,14 @@ class TableHelperTest < ActionView::TestCase
   end
 
   test "table_for helper method" do
-    assert_dom_equal(table_renderer.to_html, table_for(Post.scoped) do |t|
+    assert_dom_equal(table_renderer.to_html, table_for(Post.all) do |t|
       t.column :title
       t.column :content
     end)
   end
 
   test "attributes" do
-    table_for(Post.scoped, :id => 'table_id') do |t|
+    table_for(Post.all, :id => 'table_id') do |t|
       assert_equal({:id => 'table_id'}, t.attributes)
     end
   end

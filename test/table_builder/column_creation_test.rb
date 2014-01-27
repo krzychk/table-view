@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ColumnCreationTest < ActiveSupport::TestCase
   def builder
-    @builder ||= TableView::TableBuilder.new(Post.scoped)
+    @builder ||= TableView::TableBuilder.new(Post.all)
   end
 
   teardown {@builder = nil}
