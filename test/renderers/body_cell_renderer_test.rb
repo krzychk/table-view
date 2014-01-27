@@ -128,4 +128,10 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :title
     assert_dom_equal "<td class=\"cell-with-link\">#{link_to(Post.first.title, post_path(Post.first))}</td>", renderer(column, Post.first).to_html
   end
+
+  test "creating links on number fields" do
+    builder.link_to :record
+    column = builder.column :id
+    assert_dom_equal "<td>#{link_to(Post.first.id, Post.first)}</td>", renderer(column, Post.first).to_html
+  end
 end

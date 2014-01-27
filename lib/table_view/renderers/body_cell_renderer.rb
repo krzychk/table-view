@@ -47,7 +47,7 @@ module TableView
         elsif value === true || value === false
           I18n.t([TableView.i18n_boolean, value.to_s].compact.join('.'))
         else
-          value
+          value.to_s
         end
       end
 
