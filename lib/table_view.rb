@@ -1,9 +1,10 @@
 module TableView
   extend ActiveSupport::Autoload
 
+  autoload :Helpers
+
   eager_autoload do
     autoload :TableBuilder
-    autoload :Helpers
     autoload :Column
     autoload :Renderers
   end
