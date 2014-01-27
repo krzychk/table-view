@@ -1,3 +1,5 @@
+require "table_view/helpers"
+
 module TableView
   extend ActiveSupport::Autoload
 
