@@ -8,7 +8,7 @@ class TableViewGeneratorTest < Rails::Generators::TestCase
 
   def config_options
     TableView.class_variables.map do |option|
-      Regexp.new("config\\.#{option.to_s[2..-1]} = .+")
+      Regexp.new("config\\.#{option.to_s[2..-1]} (= )?.+")
     end
   end
 

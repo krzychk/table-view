@@ -16,6 +16,7 @@ class BodyCellRendererTest < ActionView::TestCase
     TableView.setup do |config|
       config.i18n_boolean = nil
       config.link_cell_class = nil
+      config.link_to false
     end
   end
 
@@ -94,6 +95,14 @@ class BodyCellRendererTest < ActionView::TestCase
 
   test "link attributes" do
     builder.link_to :record, :remote => true
+    column = builder.column :title
+    assert_dom_equal "<td>#{link_to(Post.first.title, post_path(Post.first), :remote => true)}</td>", renderer(column, Post.first).to_html
+  end
+
+  test "default link_to setting" do
+    TableView.setup do |config|
+      config.link_to :record, :remote => true
+    end
     column = builder.column :title
     assert_dom_equal "<td>#{link_to(Post.first.title, post_path(Post.first), :remote => true)}</td>", renderer(column, Post.first).to_html
   end

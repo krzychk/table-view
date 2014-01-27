@@ -5,6 +5,9 @@ TableView.setup do |config|
   #HTML class that will be set to TD tags containing anchors created by #link_to builder method
   config.link_cell_class = nil
 
+  #Default #link_to settings. Use like method in builder
+  config.link_to false
+
   #HTML class that will be set to TR tag rendered when there is no records to show
   config.no_records_class = "warning"
 

@@ -31,6 +31,15 @@ module TableView
   mattr_accessor :no_records_class
   @@no_records_class = nil
 
+  def self.link_to *args
+    if args.empty?
+      @@link_to
+    else
+      @@link_to = args
+    end
+  end
+  @@link_to = [false]
+
   def self.setup
     yield self
   end

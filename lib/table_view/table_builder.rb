@@ -11,11 +11,11 @@ module TableView
       @attributes = attributes
       @classes = TableView.default_table_classes.clone
       @classes += @attributes.delete(:class).split(" ") if @attributes[:class]
-      @link_to = false
       @link_attributes = {}
       @link_cell_class = TableView.link_cell_class
       @no_records_label = I18n.t(TableView.i18n_no_records)
       @no_records_class = TableView.no_records_class
+      link_to *TableView.link_to
     end
 
     def column name=nil, options={}, &block
