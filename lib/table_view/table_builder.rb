@@ -67,6 +67,10 @@ module TableView
       end
     end
 
+    def has_sums?
+      columns.any?(&:sum?)
+    end
+
     def sum column
       records.map(&column.name).sum
     end

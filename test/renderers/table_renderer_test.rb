@@ -22,12 +22,16 @@ class TableRendererTest < ActionView::TestCase
     @header_renderer ||= TableView::Renderers::HeaderRenderer.new(builder, self)
   end
 
+  def footer_renderer
+    @footer_renderer ||= TableView::Renderers::FooterRenderer.new(builder, self)
+  end
+
   def table_html
     HTML::Document.new(table_renderer.to_html).root
   end
 
   teardown do 
-    @builder = @table_renderer = @body_renderer = @header_renderer = nil
+    @builder = @table_renderer = @body_renderer = @header_renderer = @footer_renderer = nil
     TableView.setup do |config|
       config.default_table_classes = []
     end
@@ -51,5 +55,10 @@ class TableRendererTest < ActionView::TestCase
     assert_select table_html, "table" do
       assert_select "[class=default-class]"
     end
+  end
+
+  test "renders table with footer if there are sums" do
+    builder.column :id, :sum => true
+    assert_dom_equal '<table>' + header_renderer.to_html + body_renderer.to_html + footer_renderer.to_html + '</table>', table_renderer.to_html
   end
 end
