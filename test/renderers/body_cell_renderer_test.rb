@@ -134,4 +134,10 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :id
     assert_dom_equal "<td>#{link_to(Post.first.id, Post.first)}</td>", renderer(column, Post.first).to_html
   end
+
+  test "links with path method specified" do
+    builder.link_to({:method => 'edit_post_path', :args => [:record]})
+    column = builder.column :title
+    assert_dom_equal "<td>#{link_to(Post.first.title, edit_post_path(Post.first))}</td>", renderer(column, Post.first).to_html
+  end
 end

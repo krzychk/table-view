@@ -53,9 +53,16 @@ module TableView
 
       def link contents
         @link_created = true
-        path_segments = builder.link_to.is_a?(Array) ? builder.link_to.clone : [builder.link_to]
+        if builder.link_to.is_a?(Array)
+          path_segments = builder.link_to.clone
+        elsif builder.link_to.is_a?(Hash)
+          path_method = builder.link_to[:method]
+          path_segments = builder.link_to[:args] ? builder.link_to[:args].clone : []
+        else
+          path_segments = [builder.link_to]
+        end
         path_segments.map! {|segment| segment == :record ? record : segment}
-        context.link_to(contents, path_segments, builder.link_attributes)
+        context.link_to(contents, path_method ? context.send(path_method, *path_segments) : path_segments, builder.link_attributes)
       end
     end
   end
