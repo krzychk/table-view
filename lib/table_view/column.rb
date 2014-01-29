@@ -1,6 +1,6 @@
 module TableView
   class Column
-    attr_reader :name, :options, :block, :header_attributes, :body_attributes, :format, :translate, :label_method
+    attr_reader :name, :options, :block, :header_attributes, :body_attributes, :format, :translate, :label_method, :sum
 
     def initialize name=nil, options={}, &block
       @name = name
@@ -19,7 +19,11 @@ module TableView
     end
 
     def sum?
-      !!@sum
+      !!sum
+    end
+
+    def sum_as_proc?
+      sum.is_a? Proc
     end
   end
 end

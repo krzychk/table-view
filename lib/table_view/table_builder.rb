@@ -72,7 +72,11 @@ module TableView
     end
 
     def sum column
-      records.map(&column.name).sum
+      if column.sum_as_proc?
+        records.map(&column.sum).sum
+      else
+        records.map(&column.name).sum
+      end
     end
   end
 end

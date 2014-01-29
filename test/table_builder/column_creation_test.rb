@@ -44,4 +44,9 @@ class ColumnCreationTest < ActiveSupport::TestCase
     column = builder.column(:id, :sum => true)
     assert_equal Post.all.sum(:id), builder.sum(column)
   end
+
+  test "builder sums column using lambdas" do
+    column = builder.column(:id, :sum => lambda {|record| record.id * 2})
+    assert_equal 2 * Post.all.sum(:id), builder.sum(column)
+  end
 end
