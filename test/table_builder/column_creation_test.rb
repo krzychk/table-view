@@ -30,6 +30,11 @@ class ColumnCreationTest < ActiveSupport::TestCase
     assert_equal({:style => 'color: red;'}, column.body_attributes)
   end
 
+  test "allows to specify footer attributes" do
+    column = builder.column(:title, :footer_html => {:style => 'color: red;'})
+    assert_equal({:style => 'color: red;'}, column.footer_attributes)
+  end
+
   test "allows to specify sum option" do
     column = builder.column(:id, :sum => true)
     assert_equal true, column.sum?

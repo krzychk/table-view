@@ -29,4 +29,9 @@ class FooterCellRendererTest < ActionView::TestCase
     column = builder.column :id, :sum => true, :format => :simple_format
     assert_dom_equal "<td><p>#{Post.all.sum(:id)}</p></td>", renderer(column).to_html
   end
+
+  test "attribute rendering" do
+    column = builder.column :id, :sum => true, :footer_html => {:class => 'foot-cell'}
+    assert_dom_equal "<td class=\"foot-cell\">#{Post.all.sum(:id)}</td>", renderer(column).to_html
+  end
 end

@@ -9,10 +9,14 @@ module TableView
       end
 
       def to_html
-        content_tag(:td, cell_contents)
+        content_tag(:td, cell_contents, attributes)
       end
 
       private
+
+      def attributes
+        column.footer_attributes
+      end
 
       def cell_contents
         return unless column.sum?
