@@ -6,8 +6,8 @@ module TableView
       @name = name
       @options = options
       @block = block
-      @header_attributes = @options.delete(:header_attributes) || {}
-      @body_attributes = @options.delete(:body_attributes) || {}
+      @header_attributes = @options.delete(:header_html) || {}
+      @body_attributes = @options.delete(:body_html) || {}
       @format = @options.delete(:format)
       @translate = @options.delete(:translate)
       @label_method = @options.delete(:label_method) || :to_s

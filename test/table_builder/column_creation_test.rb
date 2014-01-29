@@ -21,12 +21,12 @@ class ColumnCreationTest < ActiveSupport::TestCase
   end
 
   test "allows to specify header attributes" do
-    column = builder.column(:title, :header_attributes => {:id => 'post_title'})
+    column = builder.column(:title, :header_html => {:id => 'post_title'})
     assert_equal({:id => 'post_title'}, column.header_attributes)
   end
 
   test "allows to specify body attributes" do
-    column = builder.column(:title, :body_attributes => {:style => 'color: red;'})
+    column = builder.column(:title, :body_html => {:style => 'color: red;'})
     assert_equal({:style => 'color: red;'}, column.body_attributes)
   end
 
