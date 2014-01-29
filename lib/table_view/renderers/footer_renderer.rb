@@ -14,7 +14,7 @@ module TableView
       end
 
       def cell_html column
-        content_tag(:td, column.sum? ? builder.sum(column) : nil)
+        TableView::Renderers::FooterCellRenderer.new(builder, context, column).to_html
       end
     end
   end
