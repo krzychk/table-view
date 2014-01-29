@@ -15,7 +15,13 @@ module TableView
       private
 
       def cell_contents
-        builder.sum(column) if column.sum?
+        return unless column.sum?
+        value = builder.sum(column).to_s
+        if column.format
+          context.send(column.format, value)
+        else
+          value
+        end
       end
     end 
   end

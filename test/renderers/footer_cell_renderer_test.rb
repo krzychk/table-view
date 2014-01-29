@@ -24,4 +24,9 @@ class FooterCellRendererTest < ActionView::TestCase
     column = builder.column :id, :sum => true
     assert_dom_equal "<td>#{Post.all.sum(:id)}</td>", renderer(column).to_html
   end
+
+  test "displays sum using specified format method" do
+    column = builder.column :id, :sum => true, :format => :simple_format
+    assert_dom_equal "<td><p>#{Post.all.sum(:id)}</p></td>", renderer(column).to_html
+  end
 end
