@@ -11,10 +11,15 @@ module TableView
       @format = @options.delete(:format)
       @translate = @options.delete(:translate)
       @label_method = @options.delete(:label_method) || :to_s
+      @sum = @options.delete(:sum)
     end
 
     def block_given?
       !!@block
+    end
+
+    def sum?
+      !!@sum
     end
   end
 end

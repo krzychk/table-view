@@ -8,5 +8,6 @@ module TableView
     autoload :HeaderCellRenderer
     autoload :HeaderRenderer
     autoload :TableRenderer
+    autoload :FooterRenderer
   end
 end

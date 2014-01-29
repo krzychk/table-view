@@ -66,5 +66,9 @@ module TableView
         @link_attributes = link_attributes
       end
     end
+
+    def sum column
+      records.map(&column.name).sum
+    end
   end
 end

@@ -29,4 +29,19 @@ class ColumnCreationTest < ActiveSupport::TestCase
     column = builder.column(:title, :body_attributes => {:style => 'color: red;'})
     assert_equal({:style => 'color: red;'}, column.body_attributes)
   end
+
+  test "allows to specify sum option" do
+    column = builder.column(:id, :sum => true)
+    assert_equal true, column.sum?
+  end
+
+  test "doeas not set sum if not specified" do
+    column = builder.column(:id)
+    assert_equal false, column.sum?
+  end
+
+  test "builder sums column" do
+    column = builder.column(:id, :sum => true)
+    assert_equal Post.all.sum(:id), builder.sum(column)
+  end
 end
