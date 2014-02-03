@@ -44,7 +44,7 @@ class HeaderCellRendererTest < ActionView::TestCase
     column = builder.column :title, :sortable => true
     params[:sc] = 'title'
     params[:sd] = 'asc'
-    assert_dom_equal "<th><a href=\"?sc=title&amp;sd=asc\">#{Post.human_attribute_name :title} &#9660;</a></th>", renderer(column).to_html
+    assert_dom_equal "<th><a href=\"?sc=title&amp;sd=desc\">#{Post.human_attribute_name :title} &#9660;</a></th>", renderer(column).to_html
     params[:sd] = 'desc'
     assert_dom_equal "<th><a href=\"?sc=title&amp;sd=asc\">#{Post.human_attribute_name :title} &#9650;</a></th>", renderer(column).to_html
   end

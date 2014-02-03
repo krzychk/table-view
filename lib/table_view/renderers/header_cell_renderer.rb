@@ -33,18 +33,26 @@ module TableView
       def sort_link_path
         "?#{{
           :sc => column.name,
-          :sd => 'asc'
+          :sd => sorted_ascending? ? 'desc' : 'asc'
         }.to_param}"
       end
 
       def sortable_arrow
-        if context.params[:sc] == column.name.to_s && context.params[:sd] == 'asc'
+        if sorted_ascending?
           " &#9660;"
-        elsif context.params[:sc] == column.name.to_s && context.params[:sd] == 'desc'
+        elsif sorted_descending?
           " &#9650;"
         else
           ""
         end
+      end
+
+      def sorted_ascending?
+        context.params[:sc] == column.name.to_s && context.params[:sd] == 'asc'
+      end
+
+      def sorted_descending?
+        context.params[:sc] == column.name.to_s && context.params[:sd] == 'desc'
       end
 
       def record_attribute_name
