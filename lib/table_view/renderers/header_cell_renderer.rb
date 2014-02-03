@@ -39,9 +39,9 @@ module TableView
 
       def sortable_arrow
         if sorted_ascending?
-          " &#9660;"
-        elsif sorted_descending?
           " &#9650;"
+        elsif sorted_descending?
+          " &#9660;"
         else
           ""
         end
