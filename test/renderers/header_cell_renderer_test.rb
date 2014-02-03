@@ -34,4 +34,18 @@ class HeaderCellRendererTest < ActionView::TestCase
     column = builder.column :title, :header_html => {:id => 'post_title'}
     assert_dom_equal "<th id=\"post_title\">#{Post.human_attribute_name :title}</th>", renderer(column).to_html
   end
+
+  test "create sort link if option specified" do
+    column = builder.column :title, :sortable => true
+    assert_dom_equal "<th><a href=\"?sc=title&amp;sd=asc\">#{Post.human_attribute_name :title}</a></th>", renderer(column).to_html
+  end
+
+  test "create sort link with direction mark if params has sort keys" do
+    column = builder.column :title, :sortable => true
+    params[:sc] = 'title'
+    params[:sd] = 'asc'
+    assert_dom_equal "<th><a href=\"?sc=title&amp;sd=asc\">#{Post.human_attribute_name :title} &#9660;</a></th>", renderer(column).to_html
+    params[:sd] = 'desc'
+    assert_dom_equal "<th><a href=\"?sc=title&amp;sd=asc\">#{Post.human_attribute_name :title} &#9650;</a></th>", renderer(column).to_html
+  end
 end

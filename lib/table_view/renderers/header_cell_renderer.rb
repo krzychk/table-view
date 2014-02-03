@@ -15,7 +15,36 @@ module TableView
       private
 
       def cell_contents
+        if column.sortable
+          content_tag(:a, sortable_content_text, :href => sort_link_path)
+        else
+          content_text
+        end
+      end
+
+      def content_text
         column.options[:label] || record_attribute_name
+      end
+
+      def sortable_content_text
+        "#{CGI::escapeHTML(content_text)}#{sortable_arrow}".html_safe
+      end
+
+      def sort_link_path
+        "?#{{
+          :sc => column.name,
+          :sd => 'asc'
+        }.to_param}"
+      end
+
+      def sortable_arrow
+        if context.params[:sc] == column.name.to_s && context.params[:sd] == 'asc'
+          " &#9660;"
+        elsif context.params[:sc] == column.name.to_s && context.params[:sd] == 'desc'
+          " &#9650;"
+        else
+          ""
+        end
       end
 
       def record_attribute_name
