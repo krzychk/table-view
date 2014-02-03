@@ -30,11 +30,12 @@ class BodyRendererTest < ActionView::TestCase
   end
 
   test "renders sorted table body" do
+    builder.column :id, :sortable => true
     params[:sc] = "id"
     params[:sd] = "desc"
     assert_dom_equal '<tbody>' +
-        '<tr><td>Second post</td><td>Contents of the second post</td></tr>' +
-        '<tr><td>First post</td><td>Contents of the first post</td></tr>' +
+        '<tr><td>Second post</td><td>Contents of the second post</td><td>' + Post.last.id.to_s + '</td></tr>' +
+        '<tr><td>First post</td><td>Contents of the first post</td><td>' + Post.first.id.to_s + '</td></tr>' +
       '</tbody>', renderer.to_html
   end
 

@@ -24,6 +24,10 @@ module TableView
       !!sum
     end
 
+    def sort_by_lambda?
+      sortable.is_a?(Proc)
+    end
+
     def sum_as_proc?
       sum.is_a? Proc
     end

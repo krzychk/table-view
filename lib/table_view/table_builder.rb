@@ -25,7 +25,7 @@ module TableView
     end
 
     def records sort_by=nil, sort_direction=nil
-      @records ||= sort_by ? @relation.order(sort_by => sort_direction) : @relation.load
+      @records ||= sort_by ? sorted_relation(sort_by, sort_direction) : @relation.load
     end
 
     def classes= value
@@ -77,6 +77,29 @@ module TableView
       else
         records.map(&column.name).sum
       end
+    end
+
+    private
+
+    def sorted_relation sort_by, sort_direction
+      column = column_by_name(sort_by)
+      if column.sortable
+        if column.sort_by_lambda?
+          column.sortable.call(@relation, sort_direction).load
+        else
+          @relation.order(sort_by => sort_direction).load
+        end
+      else
+        @relation.load
+      end
+    end
+
+    def column_by_name name
+      name = name.to_s
+      columns.each do |column|
+        return column if column.name.to_s == name
+      end
+      return nil
     end
   end
 end

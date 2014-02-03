@@ -2,8 +2,10 @@ require 'test_helper'
 
 class InitializationTest < ActiveSupport::TestCase
   def builder attributes={}
-    TableView::TableBuilder.new(Post.all, attributes)
+    @builder ||= TableView::TableBuilder.new(Post.all, attributes)
   end
+
+  teardown {@builder = nil}
 
   test "provides model class of relation" do
     assert_equal Post, builder.klass
@@ -18,6 +20,12 @@ class InitializationTest < ActiveSupport::TestCase
   end
 
   test "performs sort if params specified" do
+    builder.column :id, :sortable => true
     assert_equal Post.order(:id => :desc), builder.records(:id, :desc)
+  end
+
+  test "performs sort by lambda" do
+    builder.column :random_name, :sortable => lambda {|query, direction| query.order(:id => direction)}
+    assert_equal Post.order(:id => :desc), builder.records(:random_name, :desc)
   end
 end
