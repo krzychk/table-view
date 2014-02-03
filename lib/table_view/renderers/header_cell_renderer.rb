@@ -31,10 +31,10 @@ module TableView
       end
 
       def sort_link_path
-        "?#{{
-          :sc => column.name,
-          :sd => sorted_ascending? ? 'desc' : 'asc'
-        }.to_param}"
+        "?#{context.request.query_parameters.merge({
+          "sc" => column.name,
+          "sd" => sorted_ascending? ? 'desc' : 'asc'
+        }).to_param}"
       end
 
       def sortable_arrow

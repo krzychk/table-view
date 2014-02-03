@@ -5,6 +5,7 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rails/generators/test_case"
 require "table_view/generators/install_generator"
+require "action_view/test_case"
 
 Rails.backtrace_cleaner.remove_silencers!
 

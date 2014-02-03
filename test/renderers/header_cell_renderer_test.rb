@@ -11,6 +11,8 @@ class HeaderCellRendererTest < ActionView::TestCase
     TableView::Renderers::HeaderCellRenderer.new(builder, self, column)
   end
 
+  setup {self.request = ActionController::TestRequest.new}
+
   teardown {@builder = @renderer = nil}
 
   test "sets label using human_attribute_name" do
@@ -47,5 +49,11 @@ class HeaderCellRendererTest < ActionView::TestCase
     assert_dom_equal "<th><a href=\"?sc=title&amp;sd=desc\">#{Post.human_attribute_name :title} &#9650;</a></th>", renderer(column).to_html
     params[:sd] = 'desc'
     assert_dom_equal "<th><a href=\"?sc=title&amp;sd=asc\">#{Post.human_attribute_name :title} &#9660;</a></th>", renderer(column).to_html
+  end
+
+  test "preserve query parameters in sort links" do
+    column = builder.column :title, :sortable => true
+    request.query_parameters["search"] = "phrase"
+    assert_dom_equal "<th><a href=\"?sc=title&amp;sd=asc&amp;search=phrase\">#{Post.human_attribute_name :title}</a></th>", renderer(column).to_html
   end
 end
