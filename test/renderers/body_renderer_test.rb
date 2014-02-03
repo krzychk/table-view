@@ -29,6 +29,15 @@ class BodyRendererTest < ActionView::TestCase
       '</tbody>', renderer.to_html
   end
 
+  test "renders sorted table body" do
+    params[:sc] = "id"
+    params[:sd] = "desc"
+    assert_dom_equal '<tbody>' +
+        '<tr><td>Second post</td><td>Contents of the second post</td></tr>' +
+        '<tr><td>First post</td><td>Contents of the first post</td></tr>' +
+      '</tbody>', renderer.to_html
+  end
+
   test "row html classes" do
     builder.row_classes = "row"
     assert_dom_equal '<tbody>' +

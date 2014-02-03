@@ -16,4 +16,8 @@ class InitializationTest < ActiveSupport::TestCase
   test "provides given attributes" do
     assert_equal({:id => 'table_id'}, builder(:id => 'table_id').attributes)
   end
+
+  test "performs sort if params specified" do
+    assert_equal Post.order(:id => :desc), builder.records(:id, :desc)
+  end
 end

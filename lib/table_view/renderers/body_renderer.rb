@@ -10,7 +10,7 @@ module TableView
 
       def rows_html
         rows_html = "".html_safe
-        builder.records.each {|record| rows_html << record_html(record)}
+        sorted_records.each {|record| rows_html << record_html(record)}
         rows_html << no_records_row unless @has_rows
         rows_html
       end
@@ -46,6 +46,14 @@ module TableView
 
       def no_records_row
         content_tag(:tr, content_tag(:td, builder.no_records_label, :colspan => builder.columns.length), :class => builder.no_records_class)
+      end
+
+      def sorted_records
+        if context.params[:sc] && context.params[:sd]
+          builder.records(context.params[:sc], context.params[:sd].to_sym)
+        else
+          builder.records
+        end
       end
     end
   end

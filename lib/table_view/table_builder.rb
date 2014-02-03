@@ -24,8 +24,8 @@ module TableView
       column
     end
 
-    def records
-      @records ||= @relation.load
+    def records sort_by=nil, sort_direction=nil
+      @records ||= sort_by ? @relation.order(sort_by => sort_direction) : @relation.load
     end
 
     def classes= value
