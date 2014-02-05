@@ -86,6 +86,8 @@ module TableView
       if column.sortable
         if column.sort_by_lambda?
           column.sortable.call(@relation, sort_direction).load
+        elsif column.sort_by_scope?
+          @relation.send(column.sortable, sort_direction).load
         else
           @relation.order(sort_by => sort_direction).load
         end

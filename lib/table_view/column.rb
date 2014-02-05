@@ -28,6 +28,10 @@ module TableView
       sortable.is_a?(Proc)
     end
 
+    def sort_by_scope?
+      sortable.is_a?(Symbol)
+    end
+
     def sum_as_proc?
       sum.is_a? Proc
     end

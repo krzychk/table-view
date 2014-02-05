@@ -28,4 +28,9 @@ class InitializationTest < ActiveSupport::TestCase
     builder.column :random_name, :sortable => lambda {|query, direction| query.order(:id => direction)}
     assert_equal Post.order(:id => :desc), builder.records(:random_name, :desc)
   end
+
+  test "performs sort by scope" do
+    builder.column :random_name, :sortable => :sort_by_id
+    assert_equal Post.order(:id => :desc), builder.records(:random_name, :desc)
+  end
 end
