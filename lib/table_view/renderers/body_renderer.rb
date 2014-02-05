@@ -50,9 +50,17 @@ module TableView
 
       def sorted_records
         if context.params[:sc] && context.params[:sd]
-          builder.records(context.params[:sc], context.params[:sd].to_sym)
+          builder.records(context.params[:sc], sort_direction(context.params[:sd]))
         else
           builder.records
+        end
+      end
+
+      def sort_direction direction
+        if direction == "desc"
+          :desc
+        else
+          :asc
         end
       end
     end
