@@ -1,6 +1,6 @@
 module TableView
   class TableBuilder
-    attr_reader :relation, :klass, :columns, :classes, :link_attributes
+    attr_reader :relation, :klass, :columns, :classes, :link_attributes, :default_order_column, :default_order_direction
     attr_accessor :link_cell_class, :no_records_label, :no_records_class
 
     def initialize relation, attributes={}
@@ -25,7 +25,7 @@ module TableView
     end
 
     def records sort_by=nil, sort_direction=nil
-      @records ||= sort_by ? sorted_relation(sort_by, sort_direction) : @relation.load
+      @records ||= sorted_relation(sort_by, sort_direction).load
     end
 
     def classes= value
@@ -79,20 +79,27 @@ module TableView
       end
     end
 
+    def default_order column, direction
+      @default_order_column = column
+      @default_order_direction = direction
+    end
+
     private
 
     def sorted_relation sort_by, sort_direction
-      column = column_by_name(sort_by)
-      if column.sortable
+      column = column_by_name(sort_by) if sort_by
+      if column && column.sortable
         if column.sort_by_lambda?
-          column.sortable.call(@relation, sort_direction).load
+          column.sortable.call(@relation, sort_direction)
         elsif column.sort_by_scope?
-          @relation.send(column.sortable, sort_direction).load
+          @relation.send(column.sortable, sort_direction)
         else
-          @relation.order(sort_by => sort_direction).load
+          @relation.order(sort_by => sort_direction)
         end
+      elsif default_order_column && default_order_direction
+        @relation.order(default_order_column => default_order_direction)
       else
-        @relation.load
+        @relation
       end
     end
 

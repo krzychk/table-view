@@ -33,4 +33,16 @@ class InitializationTest < ActiveSupport::TestCase
     builder.column :random_name, :sortable => :sort_by_id
     assert_equal Post.order(:id => :desc), builder.records(:random_name, :desc)
   end
+
+  test "performs default sorting if no sort on column" do
+    builder.column :id
+    builder.default_order :id, :desc
+    assert_equal Post.order(:id => :desc), builder.records
+  end
+
+  test "doesn't perform sorting if sort on column definded" do
+    builder.column :id, :sortable => true
+    builder.default_order :id, :desc
+    assert_equal Post.order(:id => :asc), builder.records(:id, :asc)
+  end
 end
