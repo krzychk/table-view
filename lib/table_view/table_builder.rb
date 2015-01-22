@@ -84,6 +84,10 @@ module TableView
       @default_order_direction = direction
     end
 
+    def associated_class association_name
+      (@associated_classes ||= {})[association_name] ||= klass.reflect_on_association(association_name).klass
+    end
+
     private
 
     def sorted_relation sort_by, sort_direction
@@ -94,12 +98,20 @@ module TableView
         elsif column.sort_by_scope?
           @relation.send(column.sortable, sort_direction)
         else
-          @relation.order(sort_by => sort_direction)
+          sorted_in_default_manner(sort_by, sort_direction, column)
         end
       elsif default_order_column && default_order_direction
-        @relation.order(default_order_column => default_order_direction)
+        sorted_in_default_manner(default_order_column, default_order_direction)
       else
         @relation
+      end
+    end
+
+    def sorted_in_default_manner sort_by, sort_direction, column=nil
+      if column && column.source
+        @relation.joins(column.source).order("#{associated_class(column.source).table_name}.#{column.name} #{sort_direction}")
+      else
+        @relation.order(sort_by => sort_direction)
       end
     end
 

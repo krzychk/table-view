@@ -57,7 +57,8 @@ module TableView
 
       def record_attribute_name
         if column.name
-          builder.klass.human_attribute_name(column.name)
+          klass = column.source ? builder.associated_class(column.source) : builder.klass
+          klass.human_attribute_name(column.name)
         end
       end
     end

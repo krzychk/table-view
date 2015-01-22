@@ -20,7 +20,8 @@ module TableView
         contents = if column.block_given?
           context.capture { column.block.call(record) }
         else
-          format(record.send(column.name))
+          source = column.source ? record.send(column.source) : record
+          format(source.send(column.name))
         end
         contents = link(contents) if builder.link_to && !contents.html_safe?
         contents

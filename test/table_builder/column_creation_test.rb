@@ -54,4 +54,10 @@ class ColumnCreationTest < ActiveSupport::TestCase
     column = builder.column(:id, :sum => lambda {|record| record.id * 2})
     assert_equal 2 * Post.all.sum(:id), builder.sum(column)
   end
+
+  test "allows to specify source relation" do
+    builder = TableView::TableBuilder.new(Tag.all)
+    column = builder.column(:title, :source => :post)
+    assert_equal(:post, column.source)
+  end
 end

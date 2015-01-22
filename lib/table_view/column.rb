@@ -1,6 +1,6 @@
 module TableView
   class Column
-    attr_reader :name, :options, :block, :header_attributes, :body_attributes, :footer_attributes, :format, :translate, :label_method, :sum, :sortable
+    attr_reader :name, :options, :block, :header_attributes, :body_attributes, :footer_attributes, :format, :translate, :label_method, :sum, :sortable, :source
 
     def initialize name=nil, options={}, &block
       @name = name
@@ -14,6 +14,7 @@ module TableView
       @label_method = @options.delete(:label_method) || :to_s
       @sortable = @options.delete(:sortable) || false
       @sum = @options.delete(:sum)
+      @source = @options.delete(:source)
     end
 
     def block_given?

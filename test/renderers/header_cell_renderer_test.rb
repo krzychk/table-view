@@ -3,8 +3,8 @@ require 'test_helper'
 class HeaderCellRendererTest < ActionView::TestCase
   fixtures :all
   
-  def builder
-    @builder ||= TableView::TableBuilder.new(Post.all)
+  def builder records=Post.all
+    @builder ||= TableView::TableBuilder.new(records)
   end
 
   def renderer column
@@ -17,6 +17,11 @@ class HeaderCellRendererTest < ActionView::TestCase
 
   test "sets label using human_attribute_name" do
     column = builder.column :title
+    assert_dom_equal "<th>#{Post.human_attribute_name :title}</th>", renderer(column).to_html
+  end
+
+  test "sets label using human_attribute_name on associated class if source used" do
+    column = builder(Tag.all).column :title, :source => :post
     assert_dom_equal "<th>#{Post.human_attribute_name :title}</th>", renderer(column).to_html
   end
 

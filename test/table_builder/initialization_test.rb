@@ -11,6 +11,10 @@ class InitializationTest < ActiveSupport::TestCase
     assert_equal Post, builder.klass
   end
 
+  test "provides class of related object" do
+    assert_equal Tag, builder.associated_class(:tags)
+  end
+
   test "provides all models of given relation" do
     assert_equal Post.all.load, builder.records
   end
@@ -22,6 +26,12 @@ class InitializationTest < ActiveSupport::TestCase
   test "performs sort if params specified" do
     builder.column :id, :sortable => true
     assert_equal Post.order(:id => :desc), builder.records(:id, :desc)
+  end
+
+  test "performs sort by associated object" do
+    builder = TableView::TableBuilder.new(Tag.all)
+    builder.column :title, :source => :post, :sortable => true
+    assert_equal Tag.joins(:post).order('posts.title desc'), builder.records(:title, :desc)
   end
 
   test "performs sort by lambda" do

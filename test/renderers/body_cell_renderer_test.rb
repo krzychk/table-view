@@ -3,8 +3,8 @@ require 'test_helper'
 class BodyCellRendererTest < ActionView::TestCase
   fixtures :all
   
-  def builder
-    @builder ||= TableView::TableBuilder.new(Post.all)
+  def builder records=Post.all
+    @builder ||= TableView::TableBuilder.new(records)
   end
 
   def renderer column, record
@@ -24,6 +24,11 @@ class BodyCellRendererTest < ActionView::TestCase
     column = builder.column :title
     assert_dom_equal "<td>#{Post.first.send :title}</td>", renderer(column, Post.first).to_html
   end
+
+  test "set contents using model.:source.send method if source specified" do
+    column = builder(Tag.all).column :title, :source => :post
+    assert_dom_equal "<td>#{Tag.first.post.title}</td>", renderer(column, Tag.first).to_html
+  end 
 
   test "allows setting contents using block" do
     column = builder.column :title do |record|
